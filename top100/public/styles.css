@@ -1,0 +1,24 @@
+@media only screen and (min-width: 700px) {
+    .col-sm-half {
+      flex-basis: 50%;
+    }
+  
+  }
+  
+@media only screen and (min-width: 1100px) {
+    .col-sm-half {
+      flex-basis: calc(100%/3);
+    }
+  }
+  
+@media only screen and (min-width: 1400px) {
+    .col-lg-fourth {
+      flex-basis: 25%;
+    }
+}
+  
+@media only screen and (min-width: 2200px) {
+    .col-lg-fourth {
+      flex-basis: 20%;
+    }
+  }

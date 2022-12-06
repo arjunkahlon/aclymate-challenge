@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Song from './song';
 import LoadSpinner from './loading-spinner';
 
 
@@ -30,6 +31,20 @@ export default class SongList extends React.Component {
         <LoadSpinner />
       )
     }
+    return(
+      <div className='container'>
+        <div className='row d-flex flex-wrap'>
+          {
+            this.state.songs.map(song => {
+              return <div className='col-full col-sm-half col-md-third col-lg-fourth m-2' key={song.id.attributes['im:id']}>
+                <Song song = {song} />
+              </div>
+            })
+          }      
+        </div>
+      </div>
+    )
+    
     
   } 
 }

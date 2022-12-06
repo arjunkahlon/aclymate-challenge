@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 
 function NavigationBar() {
   return (
-    <Navbar variant='dark' bg='dark' fixed='top'>
+    <Navbar variant='dark' bg='dark' fixed='top' className='bg-gradient'>
       <Navbar.Brand className='ms-4'>
        Top 100 Songs
       </Navbar.Brand>
