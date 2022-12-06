@@ -1,3 +1,16 @@
+
+#albums-search-bar {
+  border-radius: 18px;
+  padding-left: 1rem;
+  border: 2px solid grey;
+}
+
+#albums-search-bar:focus {
+  border: 2px solid red;
+  outline: none;
+  transition: 300ms;
+}
+
 @media only screen and (min-width: 700px) {
     .col-sm-half {
       flex-basis: 50%;
@@ -22,3 +35,13 @@
       flex-basis: 20%;
     }
   }
+
+  @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body p {
+            font-style: italic;
+            font-weight: 300; /* You specify the number you see next to the fonts to change from light to bold ie you would put 700 etc. etc. */
+        }
