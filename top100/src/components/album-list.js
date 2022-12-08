@@ -12,10 +12,13 @@ export default class AlbumList extends React.Component {
       albums: [],
       searchView: false,
       searchStr: '',
-      albumSearch: []
+      albumSearch: [],
+      favoriteAlbums: []
     }
     this.processSearchInput = this.processSearchInput.bind(this);
     this.processSearch = this.processSearch.bind(this);
+    this.favoriteAlbum = this.favoriteAlbum.bind(this);
+    this.findAlbum = this.findAlbum.bind(this);
 
   }
 
@@ -32,7 +35,6 @@ export default class AlbumList extends React.Component {
 
   processSearchInput(event) {
     this.setState({
-      albumSearch: [],
       searchStr: event.target.value,
       isLoading: true
     })
@@ -51,6 +53,33 @@ export default class AlbumList extends React.Component {
       albumSearch: searchResults,
       isLoading: false
     })
+  }
+
+  favoriteAlbum(event) {
+    // console.log(event.target);
+    event.target.classList.toggle('favorited-star');
+
+    const favoritedAlbumsCopy = [...this.state.favoriteAlbums];
+    const clickedAlbum = this.findAlbum(event.target.getAttribute('data-id'));
+    // console.log(clickedAlbum);
+    if (favoritedAlbumsCopy.includes(clickedAlbum)) {
+      favoritedAlbumsCopy.splice(favoritedAlbumsCopy.indexOf(clickedAlbum), 1);
+    } else {
+      favoritedAlbumsCopy.push(clickedAlbum);
+    }
+
+    this.setState({
+      favoriteAlbums: favoritedAlbumsCopy
+    })
+  }
+
+  findAlbum(id) {
+    for (let i = 0; i < this.state.albums.length; i++) {
+      if (this.state.albums[i].id.attributes['im:id'] === id) {
+        return this.state.albums[i];
+      }
+    }
+
   }
 
   render() {
@@ -78,16 +107,14 @@ export default class AlbumList extends React.Component {
         <div className='row center d-flex flex-wrap'>
           {
             searchList.map((album, index) => {
-              return <div className='col-full col-sm-half col-md-third col-lg-fourth m-2' key={album.id.attributes['im:id']}>
-                <Album album = {album} ranking = {index + 1}/>
+              return <div className='album-parent col-full col-sm-half col-md-third col-lg-fourth m-2' key={album.id.attributes['im:id']}>
+                <Album album = {album} ranking = {index + 1} id={album.id.attributes['im:id']} favoriteAlbum = {this.favoriteAlbum}/>
               </div>
             })
           }      
         </div>
       </div>
     )
-    
-    
   } 
 }
 

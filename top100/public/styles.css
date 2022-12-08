@@ -11,6 +11,14 @@
   transition: 300ms;
 }
 
+.favorite-star {
+  font-size: 2rem;
+}
+
+.favorited-star {
+  color: red;
+}
+
 @media only screen and (min-width: 700px) {
     .col-sm-half {
       flex-basis: 50%;
