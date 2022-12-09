@@ -2,6 +2,7 @@
 import React from 'react';
 import Album from './album';
 import LoadSpinner from './loading-spinner';
+import Button from 'react-bootstrap/Button';
 
 
 export default class AlbumList extends React.Component {
@@ -11,6 +12,7 @@ export default class AlbumList extends React.Component {
       isLoading: true,
       albums: [],
       searchView: false,
+      showFavorites: false,
       searchStr: '',
       albumSearch: [],
       favoriteAlbums: []
@@ -18,6 +20,7 @@ export default class AlbumList extends React.Component {
     this.processSearchInput = this.processSearchInput.bind(this);
     this.processSearch = this.processSearch.bind(this);
     this.favoriteAlbum = this.favoriteAlbum.bind(this);
+    this.toggleFavorites = this.toggleFavorites.bind(this);
     this.findAlbum = this.findAlbum.bind(this);
 
   }
@@ -50,6 +53,7 @@ export default class AlbumList extends React.Component {
     }
     this.setState({
       searchView: true,
+      showFavorites: false,
       albumSearch: searchResults,
       isLoading: false
     })
@@ -73,6 +77,12 @@ export default class AlbumList extends React.Component {
     })
   }
 
+  toggleFavorites() {
+    this.setState({
+      showFavorites: !this.state.showFavorites
+    })
+  }
+
   findAlbum(id) {
     for (let i = 0; i < this.state.albums.length; i++) {
       if (this.state.albums[i].id.attributes['im:id'] === id) {
@@ -89,11 +99,16 @@ export default class AlbumList extends React.Component {
       )
     }
 
-    const searchList = (this.state.searchView) ? this.state.albumSearch : this.state.albums;
+    let renderList = (this.state.searchView) ? this.state.albumSearch : this.state.albums;
+    const {favoriteAlbums} = this.state;
+
+    if (this.state.showFavorites) {
+      renderList = favoriteAlbums
+    }
     return(
       <div className='container'>
         <div className='row center'>
-          <div className='col'>
+          <div className='col-10'>
             <div className='search-wrapper text-center p'>
               <input type="text" 
                      placeholder='Search Albums...' 
@@ -103,12 +118,27 @@ export default class AlbumList extends React.Component {
                      onChange={this.processSearchInput}></input>
             </div>
           </div>
+          <div className='col-2 pe-2'>
+            {
+              this.state.showFavorites
+                ? (
+                  <Button className='bg-secondary' onClick={this.toggleFavorites}><i className="bi bi-star"></i></Button>
+                )
+                : (
+                  <Button className='bg-danger' onClick={this.toggleFavorites}><i className="bi bi-star"></i></Button>
+                )
+            }
+          </div>
         </div>
         <div className='row center d-flex flex-wrap'>
           {
-            searchList.map((album, index) => {
+            renderList.map((album, index) => {
+              let favoritedAlbum = false;
+              if (favoriteAlbums.includes(album)) {
+                favoritedAlbum = true;
+              }
               return <div className='album-parent col-full col-sm-half col-md-third col-lg-fourth m-2' key={album.id.attributes['im:id']}>
-                <Album album = {album} ranking = {index + 1} id={album.id.attributes['im:id']} favoriteAlbum = {this.favoriteAlbum}/>
+                <Album album = {album} ranking = {index + 1} id={album.id.attributes['im:id']} favoriteAlbum = {this.favoriteAlbum} favoritedAlbum = {favoritedAlbum}/>
               </div>
             })
           }      

@@ -7,7 +7,7 @@ function NavigationBar() {
       <Navbar.Brand className='ms-4 text-light'>
        Top 100 Albums
       </Navbar.Brand>
-      <Nav className='justify-content-end flex-grow-1'>
+      <Nav className='justify-content-end flex-grow-1 pe-4'>
       </Nav>
     </Navbar>
   );

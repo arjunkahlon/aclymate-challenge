@@ -20,7 +20,15 @@ export default function Album(props) {
                 <p className='text-secondary'><b>Release Date:</b> {props.album['im:releaseDate'].attributes.label}</p>
                 <p className='text-secondary'><b>Price:</b> {props.album['im:price'].label}</p>
                 <div className='text-end'>
-                    <i className="bi bi-star favorite-star fa-xl" data-id={props.id} onClick={props.favoriteAlbum}></i>
+                    {
+                        props.favoritedAlbum
+                            ? (
+                                <i className="bi bi-star favorite-star favorited-star fa-xl" data-id={props.id} onClick={props.favoriteAlbum}></i>
+                            )
+                            : (
+                                <i className="bi bi-star favorite-star fa-xl" data-id={props.id} onClick={props.favoriteAlbum}></i>
+                            )
+                    }
                 </div>
             </div>
             <div className='text-end'>
