@@ -122,10 +122,10 @@ export default class AlbumList extends React.Component {
             {
               this.state.showFavorites
                 ? (
-                  <Button className='bg-secondary' onClick={this.toggleFavorites}><i className="bi bi-star"></i></Button>
+                  <Button className='bg-danger' onClick={this.toggleFavorites}><i className="bi bi-star"></i></Button>
                 )
                 : (
-                  <Button className='bg-danger' onClick={this.toggleFavorites}><i className="bi bi-star"></i></Button>
+                  <Button className='bg-secondary' onClick={this.toggleFavorites}><i className="bi bi-star"></i></Button>
                 )
             }
           </div>
